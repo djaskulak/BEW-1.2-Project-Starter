@@ -1,5 +1,5 @@
 from sqlalchemy_utils import URLType
-from app.extensions import db
+from ac_app.extensions import db
 
 class AnimalPersonality(FormEnum):
   JOCK = 'Jock'
@@ -9,31 +9,32 @@ class AnimalPersonality(FormEnum):
   LAZY = 'Lazy'
   NORMAL = 'Normal'
   SNOOTY = 'Snooty'
+  OTHER = 'Other'
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  name 
-  island 
-  animals 
-  items 
+  name = db.Column(db.String(80), nullable=False)
+  island = db.Column(db.Integer, db.ForeignKey('island.id'), nullable=False)
+  animals = db.relationship('Animal', back_populates='animals')
+  items = db.relationship('Animal', back_populates='user')
 
 class Animal(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  user_id 
-  personality 
-  name 
-  island 
-  items 
-  photo 
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  personality = db.Column(db.Enum(AnimalPersonality), default=AnimalPersonality.OTHER)
+  name = db.Column(db.String(80), nullable=False)
+  island = db.Column(db.Integer, db.ForeignKey('island.id'), nullable=False)
+  items = db.relationship('Animal', back_populates='island')
+  photo = db.Column(URLType)
 
 class Item(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  owner_id 
-  name 
-  photo 
+  owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  name = db.Column(db.String(80), nullable=False)
+  photo = db.Column(URLType)
 
 class Island(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  user_id 
-  name 
-  animals 
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+  name = db.Column(db.String(80), nullable=False)
+  animals = db.relationship('Animal', back_populates='island')
