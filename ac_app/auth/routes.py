@@ -3,17 +3,15 @@ from ac_app.models import User
 from ac_app.auth.forms import SignUpForm, LoginForm
 from ac_app import bcrypt
 from flask_login import login_user, logout_user, login_required
-import flask_login
-from flask import Blueprint
 from ac_app.extensions import db
 
-main = Blueprint('main', __name__)
+auth = Blueprint('auth', __name__)
 
 ##########################################
 #              Auth Routes               #
 ##########################################
 
-@main.route('/signup', methods=['GET', 'POST'])
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
   print('in signup')
   form = SignUpForm()
@@ -27,11 +25,11 @@ def signup():
     db.session.commit()
     flash('Account Created.')
     print('created')
-    return redirect(url_for('main.login'))
+    return redirect(url_for('auth.login'))
   print(form.errors)
   return render_template('signup.html', form=form)
 
-@main.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -41,8 +39,8 @@ def login():
         return redirect(next_page if next_page else url_for('main.homepage'))
     return render_template('login.html', form=form)
 
-@main.route('/logout')
 @login_required
+@auth.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('main.homepage'))
