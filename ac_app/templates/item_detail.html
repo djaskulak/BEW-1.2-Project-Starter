@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Item - {{ item.name }}</h1>
+
+<p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
+
+<p><strong>Price:</strong> {{ item.price }} bells</p>
+
+<h2>Edit Item</h2>
+
+<form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) }}">
+    {% include 'partials/item_form.html' %}
+</form>
+
+{% endblock %}

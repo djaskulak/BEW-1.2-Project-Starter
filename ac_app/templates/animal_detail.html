@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Animal - {{ animal.name }}</h1>
+
+<p><img src="{{ animal.photo_url }}" width="250px" height="250px"></p>
+
+<p><strong>Personality:</strong> {{ animal.personality }}</p>
+
+
+<h2>Edit Animal</h2>
+
+<form method="POST" action="{{ url_for('main.animal_detail', animal_id=animal.id) }}">
+    {% include 'partials/animal_form.html' %}
+</form>
+
+{% endblock %}

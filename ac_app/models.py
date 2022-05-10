@@ -18,8 +18,8 @@ class User(db.Model):
   password = db.Column(db.String(80), nullable=False)
   name = db.Column(db.String(80), nullable=False)
   island = db.Column(db.String(80), nullable=False)
-  animals = db.relationship('Animal', back_populates='animals')
-  items = db.relationship('Animal', back_populates='user')
+  # animals = db.relationship('Animal', back_populates='user')
+  # items = db.relationship('Animal', back_populates='user')
 
 class Animal(db.Model):
   id = db.Column(db.Integer, primary_key=True)

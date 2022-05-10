@@ -1,0 +1,21 @@
+{{ form.csrf_token }}
+<fieldset>
+  <legend>Please enter your animal's information:</legend>
+
+  {{form.name.label}}
+  {{form.name}}
+
+  {{form.personality.label}}
+  {{form.personality}}
+
+  {{form.photo_url.label}}
+  {{form.photo_url}}
+
+  <ul>
+    {% for error in form.name.errors %}
+      <li class="error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  
+  {{ form.submit }}
+</fieldset>
