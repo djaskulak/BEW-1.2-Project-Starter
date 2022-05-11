@@ -11,3 +11,4 @@ flask_login
 flask_bcrypt
 sqlalchemy_utils
 bcrypt==3.2.0
+psycopg2
