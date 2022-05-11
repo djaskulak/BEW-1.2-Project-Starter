@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if current_user.is_authenticated %}
+
+{% else %}
+
+<h1>New Horizons Log</h1>
+<p><em>The best place to keep track of what you have on your island!</em></p>
+
+{% endif %}
+
 <h1>New Horizons Log</h1>
 
 <p><em>The best place to keep track of what you have on your island!</em></p>
