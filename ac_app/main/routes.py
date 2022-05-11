@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from ac_app.models import Animal, Item
 from ac_app.main.forms import AnimalForm, ItemForm
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ac_app.extensions import db
 
 main = Blueprint('main', __name__)
@@ -13,7 +13,9 @@ main = Blueprint('main', __name__)
 # HOME
 @main.route('/')
 def homepage():
-  return render_template('home.html')
+  all_animals = Animal.query.all()
+  all_items = Item.query.all()
+  return render_template('home.html', all_animals=all_animals, all_items=all_items)
 
 # NEW ANIMAL
 @login_required
@@ -25,7 +27,8 @@ def new_animal():
     new_animal = Animal(
       name = form.name.data,
       personality = form.personality.data,
-      photo = form.photo.data
+      photo = form.photo.data,
+      user_id = current_user.id
     )
     db.session.add(new_animal)
     db.session.commit()
@@ -44,7 +47,8 @@ def new_item():
     new_item = Item(
       name = form.name.data,
       photo = form.photo.data,
-      price = form.price.data
+      price = form.price.data,
+      owner_id = current_user.id
     )
     db.session.add(new_item)
     db.session.commit()

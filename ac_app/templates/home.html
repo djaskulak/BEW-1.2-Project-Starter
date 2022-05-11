@@ -1,17 +1,58 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div
+  style="
+    text-align: center;
+  "
+>
+  <h1>New Horizons Log</h1>
+  <p><em>The best place to keep track of what you have on your island!</em></p>
+</div>
+
 {% if current_user.is_authenticated %}
+
+<div
+  style="
+    text-align: center;
+  "
+>
+  <h2>Animals:</h2>
+</div>
+
+{% for animal in all_animals %}
+<div class="card" style="width: 18rem;">
+  <img src="{{ animal.photo }}" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{ animal.name }}</h5>
+    <p class="card-text">{{ animal.personality }}</p>
+    <a href="/animal/{{ animal.id }}" class="btn btn-primary">Details</a>
+  </div>
+</div>
+{% endfor %}
+
+<div
+  style="
+    text-align: center;
+  "
+>
+  <h2>Items:</h2>
+</div>
+{% for item in all_items %}
+<div class="card" style="width: 18rem;">
+  <img src="{{ item.photo }}" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <p class="card-text">{{ item.price }} bells</p>
+    <a href="/item/{{ item.id }}" class="btn btn-primary">Details</a>
+  </div>
+</div>
+{% endfor %}
 
 {% else %}
 
-<h1>New Horizons Log</h1>
-<p><em>The best place to keep track of what you have on your island!</em></p>
 
 {% endif %}
 
-<h1>New Horizons Log</h1>
-
-<p><em>The best place to keep track of what you have on your island!</em></p>
 
 {% endblock %}

@@ -28,12 +28,12 @@ class Animal(db.Model):
   personality = db.Column(db.Enum(AnimalPersonality), default=AnimalPersonality.OTHER)
   name = db.Column(db.String(80), nullable=False)
   photo = db.Column(URLType)
-  user = db.relationship('Item', back_populates='animals')
+  user = db.relationship('User', back_populates='animals')
 
 class Item(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
   name = db.Column(db.String(80), nullable=False)
-  photo = db.Column(URLType),
+  photo = db.Column(URLType)
   price = db.Column(db.Integer, nullable=False)
-  user = db.relationship('Item', back_populates='items')
+  user = db.relationship('User', back_populates='items')

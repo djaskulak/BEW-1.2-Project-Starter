@@ -1,1 +1,7 @@
-/* Add styles here. */
+* {
+  text-align: center;
+}
+
+body {
+  background-color: #bee893;
+}
