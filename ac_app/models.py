@@ -1,6 +1,7 @@
 from ac_app.extensions import db
 from sqlalchemy_utils import URLType
 from ac_app.utils import FormEnum
+from flask_login import UserMixin
 
 class AnimalPersonality(FormEnum):
   JOCK = 'Jock'
@@ -12,14 +13,12 @@ class AnimalPersonality(FormEnum):
   SNOOTY = 'Snooty'
   OTHER = 'Other'
 
-class User(db.Model):
-  id = db.Column(db.Integer, primary_key=True)
+class User(UserMixin, db.Model):
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   username = db.Column(db.String(80), nullable=False, unique=True)
   password = db.Column(db.String(80), nullable=False)
   name = db.Column(db.String(80), nullable=False)
   island = db.Column(db.String(80), nullable=False)
-  # animals = db.relationship('Animal', back_populates='user')
-  # items = db.relationship('Animal', back_populates='user')
 
 class Animal(db.Model):
   id = db.Column(db.Integer, primary_key=True)
