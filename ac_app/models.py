@@ -1,5 +1,5 @@
-from sqlalchemy_utils import URLType
 from ac_app.extensions import db
+from sqlalchemy_utils import URLType
 from ac_app.utils import FormEnum
 
 class AnimalPersonality(FormEnum):
